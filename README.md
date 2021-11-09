@@ -10,7 +10,15 @@
 通过 **key** 生成 `n` 个 **keyfile**.
 ##### 函数定义
 ```py
-def qwq5encode(m:int,n:int,key:bytes=os.urandom(32),info:bytes=None,uinfo:list=None,pth_l:str='',pth_r:str='.key')->None:
+def qwq5encode(
+    m:int,
+    n:int,
+    key:bytes=os.urandom(32),
+    info:bytes=None,
+    uinfo:list=None,
+    pth_l:str='',
+    pth_r:str='.key'
+)->None:
 ```
 ##### 变量介绍
 |名称   |类型   |解释|
@@ -22,6 +30,7 @@ def qwq5encode(m:int,n:int,key:bytes=os.urandom(32),info:bytes=None,uinfo:list=N
 |`uinfo`|`list` |附加信息2|
 |`pth_l`|`str`  |**keyfile** 的路径前缀|
 |`pth_r`|`str`  |**keyfile** 的路径后缀|
+
 附加信息1与 **key** 相关,如 **key** 的哈希/需要用 **key** 解密的文件的哈希.
 
 附加信息2与每个 **keyfile** 相关.
@@ -33,7 +42,9 @@ def qwq5encode(m:int,n:int,key:bytes=os.urandom(32),info:bytes=None,uinfo:list=N
 通过 `m` 个 **keyfile** 还原 **key**.
 ##### 函数定义
 ```py
-def qwq5decode(f:list)->tuple:
+def qwq5decode(
+    f:list
+)->tuple:
 ```
 ##### 变量介绍
 |名称   |类型   |解释|
@@ -45,7 +56,11 @@ def qwq5decode(f:list)->tuple:
 将文件以随机生成的 `vi` 进行 **AES_CBC**, 自动加入包含原文件长度/原文件名的文件头.
 ##### 函数定义
 ```py
-def _aes.encrypt(key:bytes,p1:str,p2:str=None)->None:
+def _aes.encrypt(
+    key:bytes,
+    p1:str,
+    p2:str=None
+)->None:
 ```
 ##### 变量介绍
 |名称   |类型   |解释|
@@ -72,7 +87,15 @@ def _aes.decrypt(key:bytes,p1:str,p2:str=None)->None:
 使用 **AES_CBC** 加密文件并生成如上所述 `n` 个 **keyfile**.
 ##### 函数定义
 ```py
-def qwq5AESencrypt(m:int,n:int,p1:str,p2:str=None,key:bytes=os.urandom(32),info:bytes=None,uinfo:list=None)->None:
+def qwq5AESencrypt(
+    m:int,
+    n:int,
+    p1:str,
+    p2:str=None,
+    key:bytes=os.urandom(32),
+    info:bytes=None,
+    uinfo:list=None
+)->None:
 ```
 ##### 变量介绍
 |名称   |类型   |解释|
@@ -89,7 +112,11 @@ def qwq5AESencrypt(m:int,n:int,p1:str,p2:str=None,key:bytes=os.urandom(32),info:
 通过 `m` 个 **keyfile** 解密文件.
 ##### 函数定义
 ```py
-def qwq5AESdecrypt(f:list,p1:str,p2:str=None)->tuple:
+def qwq5AESdecrypt(
+    f:list,
+    p1:str,
+    p2:str=None
+)->tuple:
 ```
 ##### 变量介绍
 |名称   |类型   |解释|
