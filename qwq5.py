@@ -44,6 +44,7 @@ def qwq5encode(m:int,n:int,key:bytes=os.urandom(32),info:bytes=None,uinfo:list=N
         f[i[-1]].flush()
     for i in f:
         i.close()
+    return
 
 # def get_n(n:int,l:list)->int:
 #     h=-1
@@ -75,7 +76,7 @@ def get_n(n:int,l:list)->tuple:
             return ans,th
 
 
-def qwq5decode(f:list):
+def qwq5decode(f:list)->tuple:
     f=[open(i,'rb') for i in f]
     f=sorted([(int.from_bytes(i.read(1),'little'),i,) for i in f])
     num=[i[0] for i in f]
@@ -132,11 +133,12 @@ def qwq5decode(f:list):
 
     return key.to_bytes(len_key,'little'),info,uinfo
 
-def qwq5AESencrypt(m:int,n:int,p1:str,p2:str=None,key:bytes=os.urandom(32),info:bytes=None,uinfo:list=None):
+def qwq5AESencrypt(m:int,n:int,p1:str,p2:str=None,key:bytes=os.urandom(32),info:bytes=None,uinfo:list=None)->None:
     _aes.encrypt(key,p1,p2)
     qwq5encode(m,n,key,info,uinfo,pth_l=p1+'.')
+    return
 
-def qwq5AESdecrypt(f:list,p1:str,p2:str=None):
+def qwq5AESdecrypt(f:list,p1:str,p2:str=None)->tuple:
     key,info,uinfo=qwq5decode(f)
     _aes.decrypt(key,p1,p2)
     return info,uinfo

@@ -6,7 +6,7 @@ from Crypto.Cipher import AES
 bs=AES.block_size
 bs2=bs<<10
 
-def encrypt(pwd:bytes,p1:str,p2:str=None):
+def encrypt(key:bytes,p1:str,p2:str=None):
     if p2 is None:
         p2=p1+'.aes'
     f1=open(p1,'rb')
@@ -15,7 +15,7 @@ def encrypt(pwd:bytes,p1:str,p2:str=None):
     name=os.path.basename(p1).encode('utf8')
     len_name=len(name)
 
-    cipher=AES.new(pwd,AES.MODE_CBC)
+    cipher=AES.new(key,AES.MODE_CBC)
     f2.write(cipher.iv)
     data=size.to_bytes(8,'little')+len_name.to_bytes(4,'little')+os.urandom(4)+name+os.urandom(bs-(len_name-1)%bs-1)
     f2.write(cipher.encrypt(data))
@@ -31,14 +31,14 @@ def encrypt(pwd:bytes,p1:str,p2:str=None):
     f1.close()
     return p2
 
-def decrypt(pwd:bytes,p1:str,p2:str=None):
+def decrypt(key:bytes,p1:str,p2:str=None):
     f1=open(p1,'rb')
     size_f=os.path.getsize(p1)
     if size_f<16:
         raise EOFError('File is too small')
 
     iv=f1.read(bs)
-    cipher=AES.new(pwd,AES.MODE_CBC,iv)
+    cipher=AES.new(key,AES.MODE_CBC,iv)
 
     data=f1.read(bs)
     data=cipher.decrypt(data)
